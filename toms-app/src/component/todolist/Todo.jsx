@@ -117,12 +117,18 @@ const TodoList = () => {
   const displayGames = view === 'unrated' ? unratedGames : ratedGames;
 
   const markAsRated = (index) => {
-    const newRatedGame = { ...displayGames[index], rated: true, rating: displayGames[index].rating };
+    const gameToMark = displayGames[index];
+
     if (view === 'rated') {
-      setRatedGames((prev) => [...prev, newRatedGame]);
+      
       setRatedGames((prev) => prev.filter((_, i) => i !== index));
+      setUnratedGames((prev) => [
+        ...prev,
+        { text: gameToMark.text, rated: false, rating: 0 } 
+      ]);
     } else {
-      setRatedGames((prev) => [...prev, newRatedGame]);
+     
+      setRatedGames((prev) => [...prev, { ...gameToMark, rated: true }]);
       setUnratedGames((prev) => prev.filter((_, i) => i !== index));
     }
   };
