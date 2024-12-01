@@ -127,10 +127,18 @@ const TodoList = () => {
         { text: gameToMark.text, rated: false, rating: 0 } 
       ]);
     } else {
-     
       setRatedGames((prev) => [...prev, { ...gameToMark, rated: true }]);
       setUnratedGames((prev) => prev.filter((_, i) => i !== index));
     }
+  };
+
+  const markAsUnrated = (index) => {
+    const gameToUnmark = displayGames[index];
+    setUnratedGames((prev) => [
+      ...prev,
+      { text: gameToUnmark.text, rated: false, rating: 0 } 
+    ]);
+    setRatedGames((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -213,7 +221,7 @@ const TodoList = () => {
               if (view === 'unrated') {
                 setUnratedGames(unratedGames.filter((_, i) => i !== index));
               } else {
-                setRatedGames(ratedGames.filter((_, i) => i !== index));
+                markAsUnrated(index); 
               }
             }}>
               Remove
