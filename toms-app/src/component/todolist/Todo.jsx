@@ -27,15 +27,18 @@ const GameCard = ({ game, rating, handleRating }) => {
 
 const TodoList = () => {
   const [ratedGames, setRatedGames] = useState([]);
+  const [unratedGames, setUnratedGames] = useState([]); 
   const [currentGames, setCurrentGames] = useState([]);
   const [games, setGames] = useState([]);
   const [search, setSearch] = useState('');
-  const [ratings, setRatings] = useState([0, 0]); 
+  const [ratings, setRatings] = useState([0, 0]);
+  const [view, setView] = useState('unrated');
 
   const API_KEY = '37487a6982c54377bebdd3abbd810aca';
 
   useEffect(() => {
     setRatedGames([]);
+    setUnratedGames([]);
     setSearch('');
     fetchGames();
   }, []);
@@ -64,12 +67,18 @@ const TodoList = () => {
 
   const addRating = () => {
     currentGames.forEach((currentGame, index) => {
-      const ratedGame = {
+      const ratingValue = ratings[index];
+      const newGame = {
         text: currentGame.name,
-        rated: true,
-        rating: ratings[index],
+        rated: ratingValue > 0,
+        rating: ratingValue,
       };
-      setRatedGames((prevRatedGames) => [...prevRatedGames, ratedGame]);
+
+      if (ratingValue > 0) {
+        setRatedGames((prevRatedGames) => [...prevRatedGames, newGame]);
+      } else {
+        setUnratedGames((prevUnratedGames) => [...prevUnratedGames, newGame]);
+      }
     });
     fetchNewGames();
   };
@@ -99,6 +108,23 @@ const TodoList = () => {
   const handleGameSelection = (game) => {
     setCurrentGames([game]);
     setSearch('');
+  };
+
+  const toggleView = (event) => {
+    setView(event.target.value);
+  };
+
+  const displayGames = view === 'unrated' ? unratedGames : ratedGames;
+
+  const markAsRated = (index) => {
+    const newRatedGame = { ...displayGames[index], rated: true, rating: displayGames[index].rating };
+    if (view === 'rated') {
+      setRatedGames((prev) => [...prev, newRatedGame]);
+      setRatedGames((prev) => prev.filter((_, i) => i !== index));
+    } else {
+      setRatedGames((prev) => [...prev, newRatedGame]);
+      setUnratedGames((prev) => prev.filter((_, i) => i !== index));
+    }
   };
 
   return (
@@ -155,25 +181,37 @@ const TodoList = () => {
 
       <div style={{ textAlign: 'center' }}>
         <button onClick={addRating} style={{ margin: '20px auto', padding: '10px 20px', fontSize: '16px' }}>
-          Rate Both Games
+          Submit Rating
         </button>
       </div>
 
       <h2>Rated Games</h2>
+      <div>
+        <label htmlFor="game-view">Select view:</label>
+        <select id="game-view" value={view} onChange={toggleView}>
+          <option value="unrated">Unrated Games</option>
+          <option value="rated">Rated Games</option>
+        </select>
+      </div>
+
       <ul>
-        {ratedGames.map((game, index) => (
+        {displayGames.map((game, index) => (
           <li key={index}>
             <span style={{ textDecoration: game.rated ? 'none' : 'line-through' }}>
               {game.text} - Rated: {game.rating} ★
             </span>
-            <button onClick={() => {
-              const newRatedGames = [...ratedGames];
-              newRatedGames[index].rated = !newRatedGames[index].rated; 
-              setRatedGames(newRatedGames);
-            }}>
-              {game.rated ? 'Mark as Unrated' : 'Mark as Rated'}
+            <button onClick={() => markAsRated(index)}>
+              {view === 'unrated' ? 'Mark as Rated' : 'Mark as Unrated'}
             </button>
-            <button onClick={() => setRatedGames(ratedGames.filter((_, i) => i !== index))}>Remove</button>
+            <button onClick={() => {
+              if (view === 'unrated') {
+                setUnratedGames(unratedGames.filter((_, i) => i !== index));
+              } else {
+                setRatedGames(ratedGames.filter((_, i) => i !== index));
+              }
+            }}>
+              Remove
+            </button>
           </li>
         ))}
       </ul>
