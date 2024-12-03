@@ -1,15 +1,14 @@
 import React from 'react';
 
-
-const Navbar = () => {
+const Navbar = ({ onPageChange }) => {
     return (
         <nav className="navbar">
             <ul className="navbar-list">
                 <li className="navbar-item">
-                    <Link to="/">Home</Link>
+                    <button onClick={() => onPageChange('home')}>Home</button>
                 </li>
                 <li className="navbar-item">
-                    <Link to="/contact">Contact</Link>
+                    <button onClick={() => onPageChange('contact')}>Contact</button>
                 </li>
             </ul>
         </nav>
