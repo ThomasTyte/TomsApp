@@ -18,6 +18,7 @@ App State Tree
 └── view (string: 'rated' or 'unrated')
 ![Screenshot 2024-12-02 191438](https://github.com/user-attachments/assets/4e150628-9dce-4deb-a55e-a300a131efb1)
 ![Screenshot 2024-12-02 191453](https://github.com/user-attachments/assets/578f39bb-b06a-4bda-91ca-2b32e8810ed3)
+![tomsapp mobile view](https://github.com/user-attachments/assets/fe4c191c-8bb5-49a8-b126-1d376933b4ce)
 
 Contact Form State
 └── formData (object)
