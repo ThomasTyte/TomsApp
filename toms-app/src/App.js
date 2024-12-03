@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './component/navbar/Navbar';
-import Contact from './component/contactform/Contact';
-import TodoList from './component/todolist/Todo';
+import Contact from './pages/contactpage/Contact'; 
+import Home from './pages/Home/Home'; 
+import TodoList from './path/to/TodoList'; 
 
 function App() {
-    const [showContact, setShowContact] = useState(false);
-
-    const handleContactClick = () => {
-        setShowContact(prevShowContact => !prevShowContact);
-    };
-
     return (
-        <>
-            <Navbar onContactClick={handleContactClick} />
-            {showContact ? <Contact /> : <TodoList />}
-        </>
+        <Router>
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Home />} />        
+                <Route path="/contact" element={<Contact />} />  
+                <Route path="/todolist" element={<TodoList />} /> 
+            </Routes>
+        </Router>
     );
 }
 
