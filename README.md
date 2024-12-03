@@ -16,6 +16,8 @@ App State Tree
 ├── search (string)
 ├── ratings (array of numbers)
 └── view (string: 'rated' or 'unrated')
+![Screenshot 2024-12-02 191438](https://github.com/user-attachments/assets/4e150628-9dce-4deb-a55e-a300a131efb1)
+![Screenshot 2024-12-02 191453](https://github.com/user-attachments/assets/578f39bb-b06a-4bda-91ca-2b32e8810ed3)
 
 Contact Form State
 └── formData (object)
