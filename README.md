@@ -6,6 +6,12 @@ User Story 2: As a user, I want to be able to rate games from a provided list so
 
 User Story 3: As a user, I want to submit my contact information and comments through a form so that I can provide feedback or ask questions to the app's developers.
 
+Wire Frame:
+
+![Screenshot 2024-12-02 191438](https://github.com/user-attachments/assets/4e150628-9dce-4deb-a55e-a300a131efb1)
+![Screenshot 2024-12-02 191453](https://github.com/user-attachments/assets/578f39bb-b06a-4bda-91ca-2b32e8810ed3)
+![tomsapp mobile view](https://github.com/user-attachments/assets/fe4c191c-8bb5-49a8-b126-1d376933b4ce)
+
 App State Tree
 ├── showContact (boolean)
 └── TodoList State
@@ -16,8 +22,6 @@ App State Tree
 ├── search (string)
 ├── ratings (array of numbers)
 └── view (string: 'rated' or 'unrated')
-![Screenshot 2024-12-02 191438](https://github.com/user-attachments/assets/4e150628-9dce-4deb-a55e-a300a131efb1)
-![Screenshot 2024-12-02 191453](https://github.com/user-attachments/assets/578f39bb-b06a-4bda-91ca-2b32e8810ed3)
 
 Contact Form State
 └── formData (object)
